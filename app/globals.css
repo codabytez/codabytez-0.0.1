@@ -3,27 +3,73 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  background: #010c15;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  width: min(1782px, 100%);
+  height: min(945px, 100vh);
+  font-family: var(--font-fira-code);
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  border: 1px solid #1e2d3d;
+  background: #011627;
+  margin: auto;
+  overflow: hidden;
+  box-shadow: 0 0 10px -1px rgba(96, 123, 150, 0.5);
+}
+
+img {
+  -webkit-user-drag: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+button {
+  color: #607b96;
+  transition: all 0.3s;
+}
+
+code {
+  white-space: pre !important;
+  font-family: var(--font-fira-code) !important;
+}
+
+.game-card {
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    150deg,
+    rgba(23, 85, 83, 0.7) 1.7%,
+    rgba(67, 217, 173, 0.09) 81.82%
+  );
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+select:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #011221;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: 0 0 0 30px transparent inset;
 }
 
 @layer utilities {

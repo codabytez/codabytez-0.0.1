@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Fira_Code } from "next/font/google";
 import "./globals.css";
+import Footer from "@/components/footer";
+import Navbar from "@/components/navbar";
+import LoadingPage from "@/components/Loading";
+import MyApp from "@/components/_app";
+import CustomCursor from "@/components/custom-cursor";
 
-const inter = Inter({ subsets: ["latin"] });
+const fira = Fira_Code({
+  variable: "--font-fira-code",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={fira.variable}>
+        <CustomCursor />
+        <MyApp>{children}</MyApp>
+      </body>
     </html>
   );
 }
