@@ -76,6 +76,7 @@ const config: Config = {
         input: "0px 0px 0px 2px rgba(96, 123, 150, 0.30)",
         card: "0px 2px 0px 0px rgba(255, 255, 255, 0.30) inset",
         "snake-card": "1px 5px 11px 0px rgba(2, 18, 27, 0.71) inset",
+        "game-over": "1px 5px 11px 0px rgba(2, 18, 27, 0.71) inset",
       },
     },
   },

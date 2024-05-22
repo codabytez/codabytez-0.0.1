@@ -8,11 +8,12 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  padding: 14px;
 }
 
 body {
   width: min(1782px, 100%);
-  height: min(945px, 100vh);
+  height: min(945px, calc(100vh - 28px));
   font-family: var(--font-fira-code);
   display: flex;
   flex-direction: column;
@@ -44,6 +45,16 @@ button {
 code {
   white-space: pre !important;
   font-family: var(--font-fira-code) !important;
+}
+
+.snake-board {
+  background: red;
+  @apply w-5/6 aspect-[1.12/1] p-8 relative border-t;
+}
+
+.snake-game {
+  @apply bg-primary-200 relative;
+  /* box-shadow: inset primary-100 0px 0px 10px 1px; */
 }
 
 .game-card {

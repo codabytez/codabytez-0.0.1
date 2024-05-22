@@ -1,38 +1,62 @@
 "use client";
 import { useState } from "react";
 import { NextPage } from "next";
+import { motion } from "framer-motion";
 import AboutSidebar from "./sidebar";
 import Image from "next/image";
 import close from "@/public/close.svg";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { duotoneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import CodeSnippet from "./code-snippet";
 import CodeBlock from "../code-block";
+import {
+  bio,
+  interests,
+  education,
+  experience,
+  hardSkills,
+  softSkills,
+  sports,
+  movies,
+  music,
+} from "./code";
 
 const About: NextPage = () => {
   const [activeTab, setActiveTab] = useState("personal-info");
+  const [contentTab, setContentTab] = useState("bio");
 
-  const code = `/**
-  * About me
-  * I have 5 years of еxperience in web
-  * development lorem ipsum dolor sit amet,
-  * consectetur adipiscing elit, sed do eiusmod
-  * tempor incididunt ut labore et dolore
-  * magna aliqua. Ut enim ad minim veniam,
-  * quis nostrud exercitation ullamco laboris
-  * nisi ut aliquip ex ea commodo consequat.
-  * Duis aute irure dolor in reprehenderit in
-  *
-  * Duis aute irure dolor in reprehenderit in
-  * voluptate velit esse cillum dolore eu fugiat
-  * nulla pariatur. Excepteur sint occaecat
-  * officia deserunt mollit anim id est laborum.
-  */`;
+  const code =
+    contentTab === "interests"
+      ? interests
+      : contentTab === "education"
+      ? education
+      : contentTab === "experience"
+      ? experience
+      : contentTab === "hard-skills"
+      ? hardSkills
+      : contentTab === "soft-skills"
+      ? softSkills
+      : contentTab === "sports"
+      ? sports
+      : contentTab === "movies"
+      ? movies
+      : contentTab === "music"
+      ? music
+      : bio;
+
   return (
     <div className="flex w-full">
-      <AboutSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <AboutSidebar
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        setContentTab={setContentTab}
+      />
 
-      <div className="flex flex-col flex-1">
+      <motion.div
+        initial={{ x: "100vw" }}
+        animate={{ x: 0 }}
+        exit={{ x: "-100vw" }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+        className="flex flex-col flex-1"
+      >
         <div className="w-max h-10 border-r border-line flex items-center gap-11 px-3.5 shrink-0">
           <p>{activeTab}</p>
           <button>
@@ -41,18 +65,31 @@ const About: NextPage = () => {
         </div>
 
         <div className="border-t border-line w-full h-full flex justify-between items-stretch">
-          <div className="basis-[48%] flex justify-center p-5 relative">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 50 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="basis-[48%] flex justify-center p-5 relative"
+          >
             <CodeBlock code={code} language="javascript" />
 
             {/* side-scrollbar */}
             <div className="h-full w-6 absolute top-0 right-0 border-l border-line">
               <div className="w-[18px] h-2 bg-secondary-100 mx-auto mt-1" />
             </div>
-          </div>
+          </motion.div>
 
           <div className="h-full w-[1px] bg-line" />
-          <div className="basis-[52%] relative p-5">
-            <p>// Code snippet showcase:</p>
+
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="basis-[52%] relative p-5"
+          >
+            <p>{"// Code snippet showcase:"}</p>
 
             <div className="my-12">
               <CodeSnippet />
@@ -62,9 +99,9 @@ const About: NextPage = () => {
             <div className="h-full w-6 absolute top-0 right-0 border-l border-line">
               <div className="w-[18px] h-2 bg-secondary-100 mx-auto mt-1" />
             </div>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

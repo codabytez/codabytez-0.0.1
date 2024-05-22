@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import CodeBlock from "../code-block";
+import { motion } from "framer-motion";
 
 interface CodeStringProps {
   form: {
@@ -28,7 +29,13 @@ const CodeString: NextPage<CodeStringProps> = ({ form }) => {
     })`;
 
   return (
-    <div className="basis-[56%] relative flex items-center justify-center">
+    <motion.div
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -50 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+      className="basis-[56%] relative flex items-center justify-center"
+    >
       <div className="pr-6 max-w-[569px]">
         <CodeBlock code={codeString} language="javascript" />
       </div>
@@ -37,7 +44,7 @@ const CodeString: NextPage<CodeStringProps> = ({ form }) => {
       <div className="h-full w-6 absolute top-0 right-0 border-l border-line">
         <div className="w-[18px] h-2 bg-secondary-100 mx-auto mt-1" />
       </div>
-    </div>
+    </motion.div>
   );
 };
 

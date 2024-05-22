@@ -1,7 +1,10 @@
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 
-const TypingAnimation: NextPage<{ text: string, className?: string }> = ({ text,className }) => {
+const TypingAnimation: NextPage<{ text: string; className?: string }> = ({
+  text,
+  className,
+}) => {
   const [typedText, setTypedText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
 
@@ -10,7 +13,7 @@ const TypingAnimation: NextPage<{ text: string, className?: string }> = ({ text,
       if (typedText.length < text.length) {
         setTypedText(text.slice(0, typedText.length + 1));
       }
-    }, 100);
+    }, 200);
 
     return () => clearTimeout(timer);
   }, [typedText, text]);

@@ -1,9 +1,10 @@
 import { NextPage } from "next";
 
-const DropdownArrow: NextPage<{ isOpen?: boolean; isHidden?: boolean }> = ({
-  isOpen,
-  isHidden,
-}) => {
+export const DropdownArrow: NextPage<{
+  isOpen?: boolean;
+  toggle?: () => void;
+  isHidden?: boolean;
+}> = ({ isOpen, toggle, isHidden }) => {
   return (
     <div
       className={`flex justify-center items-center ${
@@ -14,6 +15,7 @@ const DropdownArrow: NextPage<{ isOpen?: boolean; isHidden?: boolean }> = ({
         className={`transition-transform transform duration-300 ${
           isOpen && "rotate-90"
         }`}
+        onClick={toggle}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -32,4 +34,40 @@ const DropdownArrow: NextPage<{ isOpen?: boolean; isHidden?: boolean }> = ({
   );
 };
 
-export default DropdownArrow;
+export const DropdownArrowFill: NextPage<{
+  isOpen?: boolean;
+  toggle?: () => void;
+  isHidden?: boolean;
+}> = ({ isOpen, toggle, isHidden }) => {
+  return (
+    <div
+      className={`flex justify-center items-center ${
+        isHidden && " invisible pointer-events-none"
+      }`}
+    >
+      <button
+        className={`transition-transform transform duration-300 ${
+          isOpen ? "rotate-0" : "-rotate-90"
+        }`}
+        onClick={toggle}
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g id="Frame" clipPath="url(#clip0_72_1377)">
+            <path id="Vector" d="M12 16L6 10H18L12 16Z" fill="#607B96" />
+          </g>
+          <defs>
+            <clipPath id="clip0_72_1377">
+              <rect width="24" height="24" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+      </button>
+    </div>
+  );
+};

@@ -1,11 +1,13 @@
 "use client";
+import { useState } from "react";
 import { NextPage } from "next";
 import Image from "next/image";
-import arrow_down from "@/public/arrow-down-fill.svg";
-import external_link from "@/public/external-link.svg";
+import { DropdownArrowFill } from "../dropdown-arrow";
+import externalLink from "@/public/external-link.svg";
 import mail from "@/public/mail.svg";
 import Link from "next/link";
 import { SOCIALS } from "@/constants";
+import { motion } from "framer-motion";
 
 const links = [
   { href: SOCIALS.INSTAGRAM, text: "instagram-account" },
@@ -13,47 +15,168 @@ const links = [
   { href: SOCIALS.WAKATIME, text: "wakatime-profile" },
 ];
 
+const sidebarVariants = {
+  initial: { x: -100, opacity: 0 },
+  animate: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.5, ease: "easeInOut" },
+  },
+  exit: {
+    x: -100,
+    opacity: 0,
+    transition: { duration: 0.3, ease: "easeInOut" },
+  },
+};
+
+const contentVariants = {
+  initial: { opacity: 0, y: 20 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, delay: 0.5, ease: "easeInOut" },
+  },
+  exit: {
+    opacity: 0,
+    y: -20,
+    transition: { duration: 0.3, ease: "easeInOut" },
+  },
+};
+
+const contactMeVariants = {
+  initial: { opacity: 0, y: 20 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeInOut",
+      staggerChildren: 0.2,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -20,
+    transition: { duration: 0.3, ease: "easeInOut" },
+  },
+};
+
+const listItemVariants = {
+  initial: { opacity: 0, y: 20 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeInOut" },
+  },
+  exit: {
+    opacity: 0,
+    y: -20,
+    transition: { duration: 0.3, ease: "easeInOut" },
+  },
+};
+
 const ContactSidebar: NextPage = () => {
+  const [isOpen, setIsOpen] = useState<string>("contact");
+  const toggleIsOpen = (key: string) => {
+    setIsOpen((prev) => (prev === key ? prev : key));
+  };
+
   return (
-    <div className="w-[310px] border-r border-line h-full flex flex-col">
-      <div className="h-10 flex gap-3 px-3 items-center w-full">
-        <Image src={arrow_down} alt="arrow_down" className="shrink-0" />
-        <p className="text-secondary-400 font-light">contacts</p>
-      </div>
-
-      <div className="flex flex-col gap-2 px-4 pt-4 pb-7 border-y border-line ">
-        <Link
-          href={"mailto:" + SOCIALS.EMAIL}
-          className="flex gap-2 items-center hover:text-secondary-400"
+    <motion.div
+      variants={sidebarVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      className="w-[310px] border-r border-line h-full flex flex-col"
+    >
+      <motion.div
+        variants={contactMeVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
+        {/* className="flex flex-col gap-2 px-4 pt-4 pb-7 border-y border-line " */}
+        <button
+          className="h-10 flex gap-3 px-3 items-center w-full"
+          onClick={() => toggleIsOpen("contact")}
+          key="contact"
         >
-          <Image src={mail} alt="mail" className="shrink-0" />
-          send-mail
-        </Link>
-      </div>
+          <DropdownArrowFill isOpen={isOpen === "contact"} />
+          <p className="text-secondary-400 font-light">contacts</p>
+        </button>
 
-      <div className="h-10 flex gap-3 px-3 items-center border-b border-line w-full">
-        <Image src={arrow_down} alt="arrow_down" className="shrink-0" />
-        <p className="text-secondary-400 font-light">find-me-also-on</p>
-      </div>
+        <motion.div
+          layout
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isOpen === "contact" ? 1 : 0 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="flex flex-col gap-2 transition-all duration-300"
+        >
+          {isOpen === "contact" && (
+            <Link
+              href={"mailto:" + SOCIALS.EMAIL}
+              className="flex gap-2 items-center hover:text-secondary-400 border-t border-line p-4"
+            >
+              <Image src={mail} alt="mail" className="shrink-0" />
+              send-mail
+            </Link>
+          )}
+        </motion.div>
+      </motion.div>
 
-      <div className="flex flex-col gap-3 pt-5 pb-7 px-4">
-        {links.map(({ href, text }) => (
-          <Link
-            key={href}
-            href={href}
-            target="_blank"
-            className="flex gap-2 items-center hover:text-secondary-400"
-          >
-            <Image
-              src={external_link}
-              alt="external_link"
-              className="shrink-0"
-            />
-            {text}
-          </Link>
-        ))}
-      </div>
-    </div>
+      <motion.div
+        variants={contentVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
+        <button
+          className="h-10 flex gap-3 px-3 items-center border-y border-line w-full"
+          onClick={() => toggleIsOpen("findMe")}
+          key="findMe"
+        >
+          <DropdownArrowFill isOpen={isOpen === "findMe"} />
+          <p className="text-secondary-400 font-light">find-me-also-on</p>
+        </button>
+
+        <motion.div
+          layout
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isOpen === "findMe" ? 1 : 0 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          {isOpen === "findMe" && (
+            <motion.div
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              variants={{ initial: {}, animate: {}, exit: {} }}
+              transition={{ staggerChildren: 0.3 }}
+              className="flex flex-col gap-3 pt-5 pb-7 px-4"
+            >
+              {links.map(({ href, text }) => (
+                <motion.div key={href} variants={listItemVariants}>
+                  <Link
+                    href={href}
+                    target="_blank"
+                    className="flex gap-2 items-center hover:text-secondary-400 w-max"
+                  >
+                    <Image
+                      src={externalLink}
+                      alt="external link"
+                      className="shrink-0"
+                    />
+                    {text}
+                  </Link>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 

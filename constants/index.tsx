@@ -15,7 +15,7 @@ export const SOCIALS = {
   WAKATIME: "https://wakatime.com/@codabytez",
 };
 
-export const spotify_playlists = [
+export const spotifyPlaylists = [
   {
     name: "bytez-mode",
     url: "https://open.spotify.com/playlist/3EJimNyBZ4gDOc4x5ictIz?si=2ca925e113864371",

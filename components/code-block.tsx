@@ -1,6 +1,5 @@
 import { NextPage } from "next";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-// import { duotoneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { duotoneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 interface CodeBlockProps {

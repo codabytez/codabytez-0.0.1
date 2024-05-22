@@ -10,12 +10,15 @@
   },
   "dependencies": {
     "@remixicon/react": "^4.2.0",
+    "@typescript-eslint/eslint-plugin": "^7.10.0",
+    "axios": "^1.7.2",
     "framer-motion": "^11.2.4",
     "next": "14.2.3",
     "react": "^18",
     "react-animated-cursor": "^2.11.2",
     "react-dom": "^18",
-    "react-syntax-highlighter": "^15.5.0"
+    "react-syntax-highlighter": "^15.5.0",
+    "typescript-eslint": "^7.10.0"
   },
   "devDependencies": {
     "@types/node": "^20",
