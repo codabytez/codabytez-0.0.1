@@ -13,6 +13,7 @@
 
 body {
   width: min(1782px, 100%);
+  min-width: 350px;
   height: min(945px, calc(100vh - 28px));
   font-family: var(--font-fira-code);
   display: flex;

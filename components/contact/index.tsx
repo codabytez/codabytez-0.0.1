@@ -25,9 +25,7 @@ const Contact: NextPage = () => {
 
   return (
     <div className="flex flex-col lg:flex-row w-full">
-      <p className="p-5 lg:hidden text-secondary-400 text-sm md-text-base">
-        _contact
-      </p>
+      <p className="p-5 lg:hidden text-secondary-400">_contact</p>
 
       <ContactSidebar />
       <motion.div

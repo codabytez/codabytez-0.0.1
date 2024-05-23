@@ -19,9 +19,10 @@ import {
   music,
 } from "./code";
 import { useStarredGists } from "@/hooks/gists";
+import SnippetSkeleton from "./snippet-skeleton";
 
 const About: NextPage = () => {
-  const { data, isSuccess } = useStarredGists();
+  const { data, isSuccess, isLoading } = useStarredGists();
   const [activeTab, setActiveTab] = useState("personal-info");
   const [contentTab, setContentTab] = useState("bio");
 
@@ -100,6 +101,21 @@ const About: NextPage = () => {
                 msOverflowStyle: "none",
               }}
             >
+              {isLoading ? (
+                <motion.div className="flex flex-col gap-5 max-w-[660px]">
+                  {[...Array(5)].map((_, i) => (
+                    <SnippetSkeleton key={i} />
+                  ))}
+                </motion.div>
+              ) : (
+                !isLoading &&
+                !isSuccess && (
+                  <p className="h-full flex items-center w-11/12">
+                    {"// Failed to fetch data. Please try again later."}
+                  </p>
+                )
+              )}
+
               {isSuccess &&
                 data
                   ?.sort((a) => (a.id === "1" ? -1 : 0))

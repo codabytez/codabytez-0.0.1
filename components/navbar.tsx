@@ -22,44 +22,52 @@ const Navbar: NextPage = () => {
 
   return (
     <nav className="w-full h-[60px] border-b border-line relative flex">
-      <p className="px-5 h-[60px] lg:border-r lg:border-line self-stretch flex items-center min-w-[310px]">
+      <p className="font-medium select-none px-5 h-[60px] lg:border-r lg:border-line self-stretch flex items-center min-w-[310px]">
         codabytez
       </p>
 
       <div
-        className={`flex items-stretch lg:justify-between lg:!h-full w-full flex-col lg:flex-row absolute lg:relative top-[60px] lg:top-0 z-20 bg-primary-200 rounded-b-lg lg:rounded-b-none lg:rounded-tr-lg ${
+        className={`flex items-stretch justify-between lg:!h-full w-full flex-col lg:flex-row absolute lg:relative top-[60px] lg:top-0 z-20 bg-primary-200 rounded-b-lg lg:rounded-b-none lg:rounded-tr-lg ${
           isMenuOpen ? "left-0" : "-left-[100vw] lg:left-0"
         } transition-all duration-300`}
         style={{
           height: "min(885px, calc(100vh - 90px))",
         }}
       >
-        <div className="flex items-center lg:h-full flex-col lg:flex-row">
-          {links.map(({ href, text }) => (
-            <Link
-              key={href}
-              href={href}
-              className={`px-8 py-5 lg:py-auto shrink-0 hover:opacity-40 border-b lg:border-r lg:border-b-0 border-line self-stretch flex items-center ${
-                pathname === href
-                  ? "text-secondary-400 border-b-4 border-b-accent-100"
-                  : ""
-              }`}
-            >
-              {text}
-            </Link>
-          ))}
+        <div className="flex lg:h-full flex-col lg:flex-row w-full lg:justify-between">
+          <div className="flex items-center lg:h-full flex-col lg:flex-row">
+            {links.map(({ href, text }) => (
+              <Link
+                key={href}
+                href={href}
+                className={`px-8 py-5 lg:py-auto shrink-0 hover:opacity-40 border-b lg:border-r border-line self-stretch flex items-center ${
+                  pathname === href
+                    ? "text-secondary-400 border-b-4 border-b-accent-100"
+                    : "lg:border-b-0"
+                }`}
+                onClick={toggleMenu}
+              >
+                {text}
+              </Link>
+            ))}
+          </div>
+
+          <Link
+            href={PAGES.CONTACT}
+            className={`px-8 py-5 lg:py-auto shrink-0 hover:opacity-40 border-b lg:border-l border-line self-stretch flex items-center ${
+              pathname === PAGES.CONTACT
+                ? "text-secondary-400 border-b-4 border-b-accent-100"
+                : "lg:border-b-0"
+            }`}
+            onClick={toggleMenu}
+          >
+            _contact-me
+          </Link>
         </div>
 
-        <Link
-          href={PAGES.CONTACT}
-          className={`px-8 py-5 lg:py-auto shrink-0 hover:opacity-40 border-b lg:border-l lg:border-b-0 border-line self-stretch flex items-center ${
-            pathname === PAGES.CONTACT
-              ? "text-secondary-400 border-b-4 border-b-accent-100"
-              : ""
-          }`}
-        >
-          _contact-me
-        </Link>
+        <p className="p-5 shrink-0 border-t border-line lg:hidden text-center select-none">
+          © {new Date().getFullYear()} codabytez
+        </p>
       </div>
 
       <motion.button

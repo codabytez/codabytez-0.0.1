@@ -12,13 +12,14 @@ const Home: NextPage = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
-        className="flex items-center justify-center gap-20 w-full"
+        className="flex items-center justify-center gap-10 px-4 xl:gap-20 w-full"
       >
         <motion.div
           initial={{ opacity: 0, x: "-100vw" }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: "-100vw" }}
           transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex h-[400px] lg:h-full"
         >
           <Details />
         </motion.div>
@@ -27,6 +28,7 @@ const Home: NextPage = () => {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: "100vw" }}
           transition={{ duration: 0.5, delay: 0.2 }}
+          className="hidden lg:flex h-full items-center"
         >
           <GameBoard />
         </motion.div>

@@ -87,7 +87,6 @@ const Projects = () => {
             <div className="w-[18px] h-2 bg-secondary-100 mx-auto mt-1" />
           </div>
         </div>
-        {/*  */}
       </div>
     </div>
   );

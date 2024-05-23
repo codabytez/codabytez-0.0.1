@@ -36,7 +36,13 @@ const CodeString: NextPage<CodeStringProps> = ({ form }) => {
       transition={{ duration: 0.5, delay: 0.2 }}
       className="w-[56%] relative hidden lg:flex items-center justify-center px-2"
     >
-      <div className="pr-6 max-w-[569px] overflow-scroll">
+      <div
+        className="pr-6 max-w-[569px] overflow-scroll"
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
+      >
         <CodeBlock code={codeString} language="javascript" />
       </div>
 

@@ -1,14 +1,22 @@
+"use client";
 import { NextPage } from "next";
 import twitter from "@/public/twitter-fill.svg";
 import linkedin from "@/public/linkedin-fill.svg";
 import github from "@/public/github-fill.svg";
 import Image from "next/image";
 import Link from "next/link";
-import { SOCIALS } from "@/constants";
+import { PAGES, SOCIALS } from "@/constants";
+import { usePathname } from "next/navigation";
 
 const Footer: NextPage = () => {
+  const pathname = usePathname();
+  const isHome = pathname === PAGES.HOME;
   return (
-    <footer className="w-full min-h-[50px] flex items-stretch border-t border-line">
+    <footer
+      className={`w-full min-h-[50px] ${
+        isHome ? "hidden lg:flex" : "flex"
+      } flex items-stretch border-t border-line`}
+    >
       <div className="flex items-stretch flex-1 justify-between sm:justify-start">
         <p className="px-5 self-stretch flex items-center text-code-snippet sm:text-base">
           Find me on:
