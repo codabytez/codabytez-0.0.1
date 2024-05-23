@@ -1,3 +1,5 @@
+export const GITHUB_API_BASE_URL = "https://api.github.com";
+
 export const PAGES = {
   HOME: "/",
   ABOUT: "/about",
@@ -37,3 +39,15 @@ export const spotifyPlaylists = [
     url: "https://open.spotify.com/playlist/4IDOYEMZ1xbPqqM2LPcCQM?si=37eba53a665a4fcc",
   },
 ];
+
+export const GITHUB_GIST_ENDPOINTS = {
+  MY_GISTS: `/gists/`,
+  CREATE_GIST: `/gists`,
+  PUBLIC_GISTS: `/gists/public`,
+  STARRED_GISTS: `/gists/starred`,
+  GET_GIST: (id: string) => `/gists/${id}`,
+  UPDATE_GIST: (id: string) => `/gists/${id}`,
+  DELETE_GIST: (id: string) => `/gists/${id}`,
+  STAR_GIST: (id: string) => `/gists/${id}/star`,
+  GISTS_BY_USER: (username: string) => `/users/${username}/gists`,
+};

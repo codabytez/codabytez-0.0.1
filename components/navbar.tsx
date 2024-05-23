@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { NextPage } from "next";
 import Link from "next/link";
 import { PAGES } from "@/constants";
@@ -12,6 +13,7 @@ const links = [
 
 const Navbar: NextPage = () => {
   const pathname = usePathname();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <nav className="w-full min-h-[60px] flex items-stretch justify-between border-b border-line">

@@ -1,9 +1,8 @@
 import { NextPage } from "next";
-import {
-  RiTwitterFill,
-  RiLinkedinBoxFill,
-  RiGithubFill,
-} from "@remixicon/react";
+import twitter from "@/public/twitter-fill.svg";
+import linkedin from "@/public/linkedin-fill.svg";
+import github from "@/public/github-fill.svg";
+import Image from "next/image";
 import Link from "next/link";
 import { SOCIALS } from "@/constants";
 
@@ -19,7 +18,7 @@ const Footer: NextPage = () => {
           className="px-3.5 shrink-0 hover:opacity-40 border-r border-line self-stretch flex items-center"
           target="_blank"
         >
-          <RiTwitterFill size={24} className="shrink-0" />
+          <Image src={twitter} alt="twitter" className="shrink-0" />
         </Link>
 
         <Link
@@ -27,7 +26,7 @@ const Footer: NextPage = () => {
           className="px-3.5 shrink-0 hover:opacity-40 border-r border-line self-stretch flex items-center"
           target="_blank"
         >
-          <RiLinkedinBoxFill size={24} className="shrink-0" />
+          <Image src={linkedin} alt="linkedin" className="shrink-0" />
         </Link>
       </div>
 
@@ -37,7 +36,7 @@ const Footer: NextPage = () => {
         target="_blank"
       >
         <p>@codabytez</p>
-        <RiGithubFill size={24} className="shrink-0" />
+        <Image src={github} alt="github" className="shrink-0" />
       </Link>
     </footer>
   );

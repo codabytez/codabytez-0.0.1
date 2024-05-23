@@ -18,8 +18,10 @@ import {
   movies,
   music,
 } from "./code";
+import { useStarredGists } from "@/hooks/gists";
 
 const About: NextPage = () => {
+  const { data, isSuccess } = useStarredGists();
   const [activeTab, setActiveTab] = useState("personal-info");
   const [contentTab, setContentTab] = useState("bio");
 
@@ -91,8 +93,17 @@ const About: NextPage = () => {
           >
             <p>{"// Code snippet showcase:"}</p>
 
-            <div className="my-12">
-              <CodeSnippet />
+            <div
+              className="my-5 flex flex-col gap-6 overflow-y-scroll h-[calc(100%-90px)]"
+              style={{
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+              }}
+            >
+              {isSuccess &&
+                data
+                  ?.sort((a) => (a.id === "1" ? -1 : 0))
+                  .map((gist) => <CodeSnippet key={gist.id} gist={gist} />)}
             </div>
 
             {/* side-scrollbar */}
@@ -107,10 +118,3 @@ const About: NextPage = () => {
 };
 
 export default About;
-
-// https://gist.github.com/schacon/1/
-
-// % of 1471 that will give 700 and 771 respectively
-// 700/1471 = 0.47619047619047616 * 100 = 47.61904761904761
-// 771/1471 = 0.5238095238095238 * 100 = 52.38095238095238
-// 47.61904761904761 + 52.38095238095238 = 100.0

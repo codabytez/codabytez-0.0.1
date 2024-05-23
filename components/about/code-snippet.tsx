@@ -1,78 +1,228 @@
 import { NextPage } from "next";
 import Image from "next/image";
+import detail from "@/public/details.svg";
 import message from "@/public/message.svg";
-import star_fill from "@/public/star-fill.svg";
-import star from "@/public/star.svg";
 import close from "@/public/close.svg";
 import Link from "next/link";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { duotoneSpace } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import CodeBlock from "../code-block";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { formatDistanceStrict } from "date-fns";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
-const CodeSnippet: NextPage = () => {
-  const code = `function initializeModelChunk<T>(chunk: ResolvedModelChunk): T {
-        const value: T = parseModel(chunk._response, chunk._value);
-        const initializedChunk: InitializedChunk<T> = (chunk: any);
-        initializedChunk._status = INITIALIZED;
-        initializedChunk._value = value;
-        return value;
-      }`;
+const skeletonVariants = {
+  initial: {
+    opacity: 0,
+    x: -50,
+  },
+  animate: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeInOut",
+    },
+  },
+};
+
+const contentVariants = {
+  initial: {
+    opacity: 0,
+    y: 20,
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeInOut",
+      staggerChildren: 0.2, // Animate children with a delay
+    },
+  },
+};
+
+const fetchGistFileContent = async (gist: MyGistsResponse) => {
+  if (!gist || !gist.files) {
+    return null;
+  }
+
+  const firstFile = Object.keys(gist.files)[0];
+  const response = await axios.get(gist.files[firstFile].raw_url);
+  return response.data;
+};
+
+const CodeSnippet: NextPage<{
+  gist: MyGistsResponse;
+}> = ({ gist }) => {
+  const { push } = useRouter();
+  const { data: fileContent, isLoading } = useQuery({
+    queryKey: ["gistFileContent", gist],
+    queryFn: () => fetchGistFileContent(gist),
+    enabled: !!gist,
+  });
+
+  const [showDetails, setShowDetails] = useState(false);
+  const code = `${fileContent}`;
+
+  console.log(gist.files[Object.keys(gist.files)[0]].language);
+
   return (
-    <div className="flex flex-col gap-5 max-w-[660px]">
-      <div className="flex flex-col gap-3">
-        <div className="flex justify-between gap-5">
-          <div className="flex gap-3 items-center">
-            <div className="rounded-full w-9 h-9 bg-[#C4C4C4] shrink-0" />
-            <div className="flex flex-col">
-              <Link
-                href={"#"}
-                className="text-[#5565E8] text-code-snippet font-bold hover:opacity-60 w-max"
-              >
-                @username
-              </Link>
-              <p className="text-secondary-100 font-medium text-xs">
-                Created 5 months ago
-              </p>
+    <motion.div
+      className="flex flex-col gap-5 max-w-[660px]"
+      variants={contentVariants}
+      initial="initial"
+      animate="animate"
+    >
+      {isLoading ? (
+        <motion.div
+          className="flex flex-col gap-3"
+          variants={contentVariants}
+          initial="initial"
+          animate="animate"
+        >
+          <motion.div
+            className="flex justify-between gap-5 items-center"
+            variants={skeletonVariants}
+          >
+            <motion.div
+              className="flex gap-3 items-center"
+              variants={skeletonVariants}
+            >
+              <motion.div
+                className="rounded-full w-9 h-9 bg-line animate-pulse"
+                variants={skeletonVariants}
+              />
+              <motion.div
+                className="w-32 h-4 bg-line rounded animate-pulse"
+                variants={skeletonVariants}
+              />
+            </motion.div>
+            <motion.div
+              className="flex gap-5 items-center"
+              variants={skeletonVariants}
+            >
+              <motion.div
+                className="w-24 h-4 bg-line rounded animate-pulse"
+                variants={skeletonVariants}
+              />
+              <motion.div
+                className="w-32 h-4 bg-line rounded animate-pulse"
+                variants={skeletonVariants}
+              />
+            </motion.div>
+          </motion.div>
+          <motion.div
+            className="w-full h-64 bg-line rounded animate-pulse"
+            variants={skeletonVariants}
+          />
+        </motion.div>
+      ) : (
+        <>
+          <div className="flex flex-col gap-3">
+            <div className="flex justify-between gap-5">
+              <div className="flex gap-3 items-center">
+                <div className="rounded-full w-9 h-9 bg-[#C4C4C4]/40 shrink-0 overflow-hidden">
+                  <Image
+                    src={gist.owner.avatar_url}
+                    alt="avatar"
+                    className="rounded-full size-full"
+                    width={36}
+                    height={36}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <Link
+                    href={gist.owner.html_url}
+                    className="text-[#5565E8] text-code-snippet font-bold hover:opacity-60 w-max"
+                  >
+                    @{gist.owner.login}
+                  </Link>
+                  <p className="text-secondary-100 font-medium text-xs">
+                    Created{" "}
+                    {formatDistanceStrict(
+                      new Date(gist.created_at),
+                      new Date(),
+                      {
+                        addSuffix: true,
+                      }
+                    )}
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-5">
+                <button
+                  className="flex gap-2 items-center w-max h-max text-code-snippet hover:text-secondary-400"
+                  onClick={() => setShowDetails(!showDetails)}
+                >
+                  <Image src={detail} alt="detail" />
+                  details
+                </button>
+
+                <button
+                  className="flex gap-2 items-center w-max h-max text-code-snippet hover:text-secondary-400"
+                  onClick={() => push(gist.comments_url)}
+                >
+                  <Image src={message} alt="message" />
+                  {gist.comments} comments
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <CodeBlock
+                code={code}
+                backgroundColor="#011221"
+                borderRadius="1rem"
+                padding="24px 30px"
+                showLineNumbers={false}
+                style={duotoneSpace}
+                language={gist.files[
+                  Object.keys(gist.files)[0]
+                ].language.toLowerCase()}
+              />
             </div>
           </div>
-          <div className="flex gap-5">
-            <button className="flex gap-2 items-center w-max h-max text-code-snippet hover:text-secondary-400">
-              <Image src={message} alt="message" />
-              details
-            </button>
 
-            <button className="flex gap-2 items-center w-max h-max text-code-snippet hover:text-secondary-400">
-              <Image src={star_fill} alt="star" />3 stars
-            </button>
-          </div>
-        </div>
-
-        <div>
-          <CodeBlock
-            code={code}
-            backgroundColor="#011221"
-            borderRadius="1rem"
-            padding="24px 30px"
-            showLineNumbers={false}
-            style={duotoneSpace}
-            language="typescript"
-          />
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-4">
-        <div className="w-full h-[1px] bg-line" />
-        <div className="flex justify-between gap-5">
-          <p className="max-w-[515px] text-code-snippet font-medium">
-            My work here was 5 months ago. It was for the project called “...”.
-            Some other text can be placed here.
-          </p>
-          <button className="hover:opacity-40 w-max h-max">
-            <Image src={close} alt="close" />
-          </button>
-        </div>
-      </div>
-    </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{
+              opacity: showDetails ? 1 : 0,
+              y: showDetails ? 0 : 20,
+            }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className={`flex flex-col gap-4 ${
+              showDetails ? "" : "pointer-events-none"
+            }`}
+          >
+            <div className="w-full h-[1px] bg-line" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{
+                opacity: showDetails ? 1 : 0,
+                y: showDetails ? 0 : 20,
+              }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.5, ease: "easeInOut", delay: 0.2 }}
+              className="flex justify-between gap-5"
+            >
+              <p className="max-w-[515px] text-code-snippet font-medium">
+                {gist.description}
+              </p>
+              <button
+                className="hover:opacity-40 w-max h-max"
+                onClick={() => setShowDetails(false)}
+              >
+                <Image src={close} alt="close" />
+              </button>
+            </motion.div>
+          </motion.div>
+        </>
+      )}
+    </motion.div>
   );
 };
 

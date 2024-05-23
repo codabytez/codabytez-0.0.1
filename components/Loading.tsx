@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const LoadingPage: NextPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-full bg-primary-200">
+    <div className="flex flex-col items-center justify-center h-full bg-primary-200 p-2">
       {/* Animated SVG */}
       <motion.div
         animate={{
@@ -42,17 +42,19 @@ const LoadingPage: NextPage = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.5 }}
       >
-        <div className="flex items-center gap-2">
-          <p className="text-accent-200 text-2xl font-bold">Loading</p>
+        <div className="flex items-center gap-2 justify-center">
+          <p className="text-accent-200 text-lg sm:text-2xl font-bold">
+            Loading
+          </p>
           <svg
-            className="shrink-0"
+            className="shrink-0 w-6 h-6 sm:w-auto sm:h-auto"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 200 200"
           >
             <circle
               fill="#43D9AD"
               stroke="#43D9AD"
-              stroke-width="10"
+              strokeWidth="10"
               r="15"
               cx="40"
               cy="100"
@@ -70,7 +72,7 @@ const LoadingPage: NextPage = () => {
             <circle
               fill="#43D9AD"
               stroke="#43D9AD"
-              stroke-width="10"
+              strokeWidth="10"
               r="15"
               cx="100"
               cy="100"
@@ -88,7 +90,7 @@ const LoadingPage: NextPage = () => {
             <circle
               fill="#43D9AD"
               stroke="#43D9AD"
-              stroke-width="10"
+              strokeWidth="10"
               r="15"
               cx="160"
               cy="100"
@@ -105,14 +107,14 @@ const LoadingPage: NextPage = () => {
             </circle>
           </svg>
         </div>
-        <p className="text-secondary-100 mt-2">
+        <p className="text-secondary-100 text-sm sm:text-base mt-2 text-center">
           Please wait while we load your content
         </p>
       </motion.div>
 
       {/* Animated Code Snippet */}
       <motion.div
-        className="mt-8 p-4 rounded-lg bg-primary-300 shadow-card"
+        className="mt-8 p-4 rounded-lg bg-primary-300 shadow-card transition-all duration-300"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 1 }}
@@ -123,47 +125,51 @@ const LoadingPage: NextPage = () => {
           <div className="w-3 h-3 rounded-full bg-accent-100" />
         </div>
         <div className="mt-4 text-code-snippet text-secondary-100">
-          <p>
+          <p className="text-xs sm:text-base">
             <span className="text-accent-200">import</span>{" "}
             <span className="text-secondary-300">{"{ NextPage }"}</span> from{" "}
-            <span className="text-accent-100">'next'</span>;
+            <span className="text-accent-100">{"'next'"}</span>;
           </p>
-          <p>
+          <p className="text-xs sm:text-base">
             <span className="text-accent-200">import</span>{" "}
             <span className="text-secondary-300">ThemeProvider</span> from{" "}
-            <span className="text-accent-100">'@theme/ThemeProvider'</span>;
+            <span className="text-accent-100">{"'@theme/ThemeProvider'"}</span>;
             <br /> <br />
           </p>
-          <p>
+          <p className="text-xs sm:text-base">
             <span className="text-secondary-100">const</span>{" "}
             <span className="text-accent-200">
               App<span className="text-secondary-400">:</span> NextPage
             </span>{" "}
             = <span className="text-secondary-100">()</span> =&gt; (
           </p>
-          <p className="ml-4">
+          <p className="ml-4 text-xs sm:text-base">
             <span className="text-secondary-100">return</span> (
           </p>
-          <p className="ml-8">
+          <p className="ml-8 text-xs sm:text-base">
             &lt;<span className="text-accent-200">ThemeProvider</span>&gt;
           </p>
-          <p className="ml-12">
+          <p className="ml-12 text-xs sm:text-base">
             &lt;<span className="text-accent-200">p</span>&gt;Hello World!!&lt;/
             <span className="text-accent-200">p</span>&gt;
           </p>
-          <p className="ml-12 lg:hidden">
-            &lt;<span className="text-accent-200">p</span> className="
-            <span className="text-accent-100">text-accent-200</span>"&gt; <br />
-            &nbsp;&nbsp; For best experience, open this site on a desktop or
-            laptop.
+          <p className="ml-12 text-xs sm:text-base lg:hidden">
+            &lt;<span className="text-accent-200">p</span> {'className="'}
+            <span className="text-accent-100">text-accent-200</span>
+            {'"'}&gt; <br />
+            &nbsp;&nbsp; For best experience, open this{" "}
+            <br className="md:hidden" />
+            <span className="pl-5 sm:pl-7 md:pl-0 inline-block">
+              site on a desktop or laptop.
+            </span>
             <br />
             &lt;/<span className="text-accent-200">p</span>&gt;
           </p>
-          <p className="ml-8">
+          <p className="ml-8 text-xs sm:text-base">
             &lt;/<span className="text-accent-200">ThemeProvider</span>&gt;
           </p>
-          <p className="ml-4">);</p>
-          <p>);</p>
+          <p className="ml-4 text-xs sm:text-base">);</p>
+          <p className="text-xs sm:text-base">);</p>
         </div>
       </motion.div>
     </div>
