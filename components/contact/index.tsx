@@ -24,24 +24,28 @@ const Contact: NextPage = () => {
   };
 
   return (
-    <div className="flex w-full">
+    <div className="flex flex-col lg:flex-row w-full">
+      <p className="p-5 lg:hidden text-secondary-400 text-sm md-text-base">
+        _contact
+      </p>
+
       <ContactSidebar />
       <motion.div
         initial={{ x: "100vw" }}
         animate={{ x: 0 }}
         exit={{ x: "-100vw" }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
-        className="flex flex-col flex-1"
+        className="flex flex-col lg:flex-1 w-full lg:w-[calc(100%-310px)]"
       >
-        <div className="w-max h-10 border-r border-line flex items-center gap-11 px-3.5 shrink-0">
+        <div className="w-full lg:w-max h-10 border-r border-line hidden lg:flex items-center gap-11 px-3.5 shrink-0">
           <p>contacts</p>
           <button>
             <Image src={close} alt="close" />
           </button>
         </div>
-        <div className="border-t border-line w-full h-full flex justify-between items-stretch">
+        <div className="w-full lg:border-t border-line h-full flex justify-between items-stretch">
           <ContactForm form={form} handleChange={handleChange} />
-          <div className="h-full w-[1px] bg-line" />
+          <div className="h-full w-[1px] bg-line hidden lg:block basis-[1px]" />
 
           <CodeString form={form} />
         </div>

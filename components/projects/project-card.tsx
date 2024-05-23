@@ -73,10 +73,10 @@ const ProjectCard: NextPage<ProjectCardProps> = ({
         transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
       >
         Project {index + 1}{" "}
-        <span className="text-secondary-100"> // _{name} </span>
+        <span className="text-secondary-100"> {`// _${name}`} </span>
       </motion.p>
       <motion.div
-        className="w-[370px] min-h-[315px] rounded-2xl border border-line bg-primary-300 overflow-hidden shadow-sm cursor-grab active:cursor-grabbing flex-1"
+        className="w-full max-w-[370px] min-h-[315px] rounded-2xl border border-line bg-primary-300 overflow-hidden shadow-sm cursor-grab active:cursor-grabbing flex-1"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
@@ -105,7 +105,7 @@ const ProjectCard: NextPage<ProjectCardProps> = ({
             className="w-full h-full object-cover"
           />
         </div>
-        <div className="flex flex-col gap-5 py-5 px-8">
+        <div className="flex flex-col gap-5 p-5">
           <motion.p
             className="max-w-[304px] text-body font-medium"
             initial={{ opacity: 0, y: 20 }}

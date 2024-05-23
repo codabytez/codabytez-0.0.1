@@ -78,7 +78,7 @@ const listItemVariants = {
 const ContactSidebar: NextPage = () => {
   const [isOpen, setIsOpen] = useState<string>("contact");
   const toggleIsOpen = (key: string) => {
-    setIsOpen((prev) => (prev === key ? prev : key));
+    setIsOpen((prev) => (prev === key ? "" : key));
   };
 
   return (
@@ -87,7 +87,7 @@ const ContactSidebar: NextPage = () => {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="w-[310px] border-r border-line h-full flex flex-col"
+      className="w-full lg:w-[310px] lg:border-r border-line lg:h-full flex flex-col gap-1 lg:gap-0 shrink-0"
     >
       <motion.div
         variants={contactMeVariants}
@@ -95,9 +95,8 @@ const ContactSidebar: NextPage = () => {
         animate="animate"
         exit="exit"
       >
-        {/* className="flex flex-col gap-2 px-4 pt-4 pb-7 border-y border-line " */}
         <button
-          className="h-10 flex gap-3 px-3 items-center w-full"
+          className="h-10 flex gap-3 px-3 items-center w-full shrink-0 bg-line hover:opacity-60 lg:bg-transparent"
           onClick={() => toggleIsOpen("contact")}
           key="contact"
         >
@@ -132,7 +131,7 @@ const ContactSidebar: NextPage = () => {
         exit="exit"
       >
         <button
-          className="h-10 flex gap-3 px-3 items-center border-y border-line w-full"
+          className="h-10 flex gap-3 px-3 items-center border-y border-line w-full shrink-0 bg-line hover:opacity-60 lg:bg-transparent"
           onClick={() => toggleIsOpen("findMe")}
           key="findMe"
         >

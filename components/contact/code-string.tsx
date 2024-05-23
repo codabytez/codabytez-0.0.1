@@ -34,9 +34,9 @@ const CodeString: NextPage<CodeStringProps> = ({ form }) => {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -50 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="basis-[56%] relative flex items-center justify-center"
+      className="w-[56%] relative hidden lg:flex items-center justify-center px-2"
     >
-      <div className="pr-6 max-w-[569px]">
+      <div className="pr-6 max-w-[569px] overflow-scroll">
         <CodeBlock code={codeString} language="javascript" />
       </div>
 

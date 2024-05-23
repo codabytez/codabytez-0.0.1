@@ -28,7 +28,7 @@ const Button: NextPage<ButtonProps> = ({
     return (
       <Link
         href={href}
-        className={`rounded-lg px-3.5 py-2.5 shadow-md transition-all duration-300 ${btnVariant} ${className}`}
+        className={`text-sm md-text-base rounded-lg px-3.5 py-2.5 shadow-md transition-all duration-300 ${btnVariant} ${className}`}
       >
         {children}
       </Link>
@@ -37,8 +37,8 @@ const Button: NextPage<ButtonProps> = ({
 
   return (
     <button
-      className={`rounded-lg px-3.5 py-2.5 shadow-md transition-all duration-300 ${btnVariant} ${className}`}
-      {...props}
+      className={`text-sm md-text-base rounded-lg px-3.5 py-2.5 shadow-md transition-all duration-300 ${btnVariant} ${className}`}
+      {...props} //eslint-disable-line
     >
       {children}
     </button>

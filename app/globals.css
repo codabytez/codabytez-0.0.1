@@ -23,6 +23,7 @@ body {
   margin: auto;
   overflow: hidden;
   box-shadow: 0 0 10px -1px rgba(96, 123, 150, 0.5);
+  position: relative;
 }
 
 img {

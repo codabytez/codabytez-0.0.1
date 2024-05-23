@@ -19,7 +19,7 @@ const ContactForm: NextPage<ContactFormProps> = ({ form, handleChange }) => {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 50 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="basis-[43%] flex items-center justify-center px-5"
+      className="w-full lg:w-[43%] flex items-center lg:justify-center py-10 px-5"
     >
       <form className="flex flex-col gap-6 w-full max-w-[372px]">
         <motion.div
