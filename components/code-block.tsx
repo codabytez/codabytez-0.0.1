@@ -22,7 +22,6 @@ const CodeBlock: NextPage<CodeBlockProps> = ({
   showLineNumbers = true,
   backgroundColor,
   borderRadius,
-
   padding,
   style,
 }) => {

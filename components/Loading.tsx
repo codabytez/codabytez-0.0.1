@@ -108,7 +108,7 @@ const LoadingPage: NextPage = () => {
           </svg>
         </div>
         <p className="text-secondary-100 text-sm sm:text-base mt-2 text-center">
-          Please wait while we load your content
+          Hold tight! We are preparing the launchpad.
         </p>
       </motion.div>
 

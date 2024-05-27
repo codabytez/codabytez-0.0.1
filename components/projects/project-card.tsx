@@ -76,7 +76,7 @@ const ProjectCard: NextPage<ProjectCardProps> = ({
         <span className="text-secondary-100"> {`// _${name}`} </span>
       </motion.p>
       <motion.div
-        className="w-full max-w-[370px] min-h-[315px] rounded-2xl border border-line bg-primary-300 overflow-hidden shadow-sm cursor-grab active:cursor-grabbing flex-1"
+        className="w-full max-w-[370px] min-h-[315px] rounded-2xl border border-line bg-primary-300 overflow-hidden shadow-sm cursor-grab active:cursor-grabbing"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}

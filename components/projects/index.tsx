@@ -6,6 +6,7 @@ import close from "@/public/close.svg";
 import ProjectCard from "./project-card";
 import { projects } from "./projects";
 import { motion } from "framer-motion";
+import ProjectEmptyState from "./project-empty-state";
 
 const Projects = () => {
   const [selectedTech, setSelectedTech] = useState<string[]>([]);
@@ -42,7 +43,13 @@ const Projects = () => {
       <p className="p-5 lg:hidden text-secondary-400">_projects</p>
       <ProjectSidebar handleSelect={handleSelect} selectedTech={selectedTech} />
 
-      <div className="flex flex-col h-[calc(100%-110px)] lg:h-full flex-1">
+      <div
+        className="flex flex-col overflow-y-scroll h-full flex-1"
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
+      >
         <div className="w-max lg:h-10 lg:border-r lg:border-line flex items-center gap-11 px-3.5 shrink-0">
           <p className="hidden lg:block">
             {selectedTech.length > 0 ? selectedTech.join(" | ") : "projects"}
@@ -56,31 +63,35 @@ const Projects = () => {
           </button>
         </div>
 
-        <div className="lg:border-t lg:border-line p-10 2xl:p-20 relative overflow-hidden">
-          <motion.div
-            key={filteredProjects.map((_, i) => i).join("-")}
-            initial={{ opacity: 0.5 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="w-full h-full gap-x-5 gap-y-10 overflow-auto items-stretch center grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
-            style={{
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-            }}
-          >
-            {filteredProjects.map((project, i) => (
-              <motion.div
-                key={i}
-                initial={{ x: 100 }}
-                animate={{ x: 0 }}
-                exit={{ x: -100 }}
-                transition={{ duration: 0.5, delay: i * 0.5 }}
-              >
-                <ProjectCard key={i} {...project} index={i} />
-              </motion.div>
-            ))}
-          </motion.div>
+        <div className="lg:border-t lg:border-line p-10 2xl:p-20 relative overflow-hidden h-full">
+          {filteredProjects.length === 0 ? (
+            <ProjectEmptyState />
+          ) : (
+            <motion.div
+              key={filteredProjects.map((_, i) => i).join("-")}
+              initial={{ opacity: 0.5 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="size-full gap-x-5 gap-y-10 overflow-auto items-stretch center grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
+              style={{
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+              }}
+            >
+              {filteredProjects.map((project, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ x: 100 }}
+                  animate={{ x: 0 }}
+                  exit={{ x: -100 }}
+                  transition={{ duration: 0.5, delay: i * 0.5 }}
+                >
+                  <ProjectCard key={i} {...project} index={i} />
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
 
           {/* side-scrollbar */}
           <div className="h-full w-6 absolute top-0 right-0 border-l border-line shrink-0 hidden lg:flex">

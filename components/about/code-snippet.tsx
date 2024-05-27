@@ -55,7 +55,7 @@ const CodeSnippet: NextPage<{
 
   return (
     <motion.div
-      className="flex flex-col gap-5 max-w-[660px]"
+      className="flex flex-col gap-5 w-full max-w-[660px]"
       variants={contentVariants}
       initial="initial"
       animate="animate"
@@ -64,8 +64,8 @@ const CodeSnippet: NextPage<{
         <SnippetSkeleton />
       ) : (
         <>
-          <div className="flex flex-col gap-3">
-            <div className="flex justify-between gap-5">
+          <div className="flex flex-col gap-3 max-w-full">
+            <div className="flex justify-between gap-3 sm:gap-5">
               <div className="flex gap-3 items-center">
                 <div className="rounded-full w-9 h-9 bg-[#C4C4C4]/40 shrink-0 overflow-hidden">
                   <Image
@@ -95,7 +95,7 @@ const CodeSnippet: NextPage<{
                   </p>
                 </div>
               </div>
-              <div className="flex gap-5">
+              <div className="flex gap-1 sm:gap-5 flex-col sm:flex-row">
                 <button
                   className="flex gap-2 items-center w-max h-max text-code-snippet hover:text-secondary-400"
                   onClick={() => setShowDetails(!showDetails)}
@@ -114,7 +114,7 @@ const CodeSnippet: NextPage<{
               </div>
             </div>
 
-            <div>
+            <div className="">
               <CodeBlock
                 code={code}
                 backgroundColor="#011221"

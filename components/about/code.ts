@@ -163,18 +163,20 @@ export const movies = `/**
 * and new genres to explore.
 *
 * A few of my favorite movies and series are:
-* - The Shawshank Redemption
-* - The Dark Knight
-* - Inception
-* - Breaking Bad
-* - Game of Thrones
-*
+* - See
+* - Dune
+* - The Transporter
+* - Black Panther
+* - The Maze Runner
 *
 * Feel free to share your favorite movies with me
-* and we can discuss them together.
 */`;
 
-export const music = `/**
+export const music = (
+  topTracks: SpotifyTopTracksResponse,
+  topArtists: SpotifyTopArtistsResponse
+) => {
+  return `/**
 * music:
 * I enjoy listening to music at all times.
 * I like to listen to a variety of genres
@@ -182,7 +184,6 @@ export const music = `/**
 *
 * I have a diverse taste in music and enjoy
 * discovering new artists and songs.
-*
 * My taste in music changes depending on my
 * mood and the time of day.
 *
@@ -192,20 +193,14 @@ export const music = `/**
 * When I'm relaxing, I like to listen to
 * upbeat music to lift my spirits.
 *
-* Some of my favorite artists are:
-* - Drake
-* - J. Cole
-* - Beyonce
-* - Ed Sheeran
-* - Coldplay
+* Top Artists for the month:
+${topArtists.items.map((artist) => `* - ${artist.name}`).join("\n")}
 *
-* Some of my favorite songs are:
-* - One Dance by Drake
-* - Love Yourz by J. Cole
-* - Halo by Beyonce
-* - Shape of You by Ed Sheeran
-* - Viva La Vida by Coldplay
+* Top Tracks for the month:
+${topTracks.items
+  .map((track) => `* - ${track.artists[0].name} - ${track.name}`)
+  .join("\n")}
 *
-* Feel free to share your favorite music with me
-* and we can discuss them together.
+* Feel free to share your favorite music with me.
 */`;
+};

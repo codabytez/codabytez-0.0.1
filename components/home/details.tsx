@@ -2,11 +2,12 @@
 import { NextPage } from "next";
 import { motion } from "framer-motion";
 import TypingAnimation from "./typing-animation";
+import NowPlayingCard from "../now-playing-card";
 
 const Details: NextPage = () => {
   return (
     <div
-      className="flex flex-col gap-14 xl:gap-20 h-full justify-between lg:justify-center"
+      className="flex flex-col gap-14 h-full justify-center"
       suppressHydrationWarning
     >
       <motion.div
@@ -71,6 +72,8 @@ const Details: NextPage = () => {
           </span>
         </motion.p>
       </motion.div>
+
+      <NowPlayingCard />
     </div>
   );
 };

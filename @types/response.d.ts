@@ -64,3 +64,55 @@ interface MyGistsResponse {
   };
   truncated: boolean;
 }
+
+interface SpotifyAccessTokenResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  scope: string;
+}
+
+interface SpotifyNowPlayingResponse {
+  timestamp: number;
+  context: Context;
+  progress_ms: number;
+  item: Item;
+  currently_playing_type: string;
+  actions: Actions;
+  is_playing: boolean;
+}
+
+interface SpotifyUserResponse {
+  display_name: string;
+  external_urls: ExternalUrls;
+  href: string;
+  id: string;
+  images: Image[];
+  type: string;
+  uri: string;
+  followers: Followers;
+  country: string;
+  product: string;
+  explicit_content: ExplicitContent;
+  email: string;
+}
+
+interface SpotifyTopArtistsResponse {
+  items: TopArtistItem[];
+  total: number;
+  limit: number;
+  offset: number;
+  href: string;
+  next: string;
+  previous: null;
+}
+
+interface SpotifyTopTracksResponse {
+  items: TopTracksItem[];
+  total: number;
+  limit: number;
+  offset: number;
+  href: string;
+  next: string;
+  previous: null;
+}

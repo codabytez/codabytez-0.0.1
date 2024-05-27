@@ -121,10 +121,10 @@ const AboutSidebar: NextPage<AboutSidebarProps> = ({
   setActiveTab,
   setContentTab,
 }) => {
-  const [isOpen, setIsOpen] = useState<string>("info");
+  const [isOpen, setIsOpen] = useState<string>("personal-info");
 
   const toggleOpen = (key: string) => {
-    setIsOpen((prev) => (prev === key ? prev : key));
+    setIsOpen((prev) => (prev === key ? "" : key));
   };
 
   return (
@@ -133,13 +133,14 @@ const AboutSidebar: NextPage<AboutSidebarProps> = ({
       initial="initial"
       animate="animate"
       exit="exit"
-      className="w-[310px] border-r border-line h-full flex transition-all duration-300 shrink-0"
+      className="w-full lg:w-[310px] border-r border-line lg:h-full flex transition-all duration-300 shrink-0"
     >
       <motion.div
         variants={itemVariants}
         initial="initial"
         animate="animate"
         exit="exit"
+        className="hidden lg:block"
       >
         <motion.div
           initial="initial"
@@ -155,7 +156,7 @@ const AboutSidebar: NextPage<AboutSidebarProps> = ({
                 key={name}
                 onClick={() => {
                   setActiveTab(name);
-                  toggleOpen("info");
+                  toggleOpen(name);
                   setContentTab(
                     name === "professional-info"
                       ? "experience"
@@ -175,22 +176,23 @@ const AboutSidebar: NextPage<AboutSidebarProps> = ({
         </motion.div>
       </motion.div>
 
-      <div className="flex flex-col h-full flex-1">
+      <div className="flex flex-col h-full flex-1 gap-1 lg:gap-0">
         <motion.div
           variants={contentVariants}
           initial="initial"
           animate="animate"
           exit="exit"
+          className="hidden lg:block"
         >
           <button
-            className="h-10 flex gap-3 px-3 items-center w-full shrink-0"
-            onClick={() => toggleOpen("info")}
-            key={"info"}
+            className="h-10 flex gap-3 px-3 items-center w-full shrink-0 bg-line hover:opacity-60 lg:bg-transparent"
+            onClick={() => toggleOpen(activeTab)}
+            key={activeTab}
           >
-            <DropdownArrowFill isOpen={isOpen === "info"} />
+            <DropdownArrowFill isOpen={isOpen === activeTab} />
             <p className="text-secondary-400 font-light">{activeTab}</p>
           </button>
-          {isOpen === "info" && (
+          {isOpen === activeTab && (
             <AnimatePresence>
               {activeTab === "hobbies" ? (
                 <motion.div
@@ -227,13 +229,112 @@ const AboutSidebar: NextPage<AboutSidebarProps> = ({
         </motion.div>
 
         <motion.div
+          variants={contentVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          className="lg:hidden"
+        >
+          <button
+            className="h-10 flex gap-3 px-3 items-center border-y border-line w-full bg-line hover:opacity-60 lg:bg-transparent"
+            onClick={() => {
+              toggleOpen("personal-info");
+              setActiveTab("personal-info");
+              setContentTab("bio");
+            }}
+            key={"personal-info"}
+          >
+            <DropdownArrowFill isOpen={isOpen === "personal-info"} />
+            <p className="text-secondary-400 font-light">personal-info</p>
+          </button>
+
+          <motion.div
+            layout
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isOpen === "personal-info" ? 1 : 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {isOpen === "personal-info" && (
+              <PersonalSidebar setContentTab={setContentTab} />
+            )}
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          variants={contentVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          className="lg:hidden"
+        >
+          <button
+            className="h-10 flex gap-3 px-3 items-center border-y border-line w-full bg-line hover:opacity-60 lg:bg-transparent"
+            onClick={() => {
+              toggleOpen("professional-info");
+              setActiveTab("professional-info");
+              setContentTab("experience");
+            }}
+            key={"professional-info"}
+          >
+            <DropdownArrowFill isOpen={isOpen === "professional-info"} />
+            <p className="text-secondary-400 font-light">professional-info</p>
+          </button>
+
+          <motion.div
+            layout
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isOpen === "professional-info" ? 1 : 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {isOpen === "professional-info" && (
+              <ProfSidebar setContentTab={setContentTab} />
+            )}
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          variants={contentVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          className="lg:hidden"
+        >
+          <button
+            className="h-10 flex gap-3 px-3 items-center border-y border-line w-full bg-line hover:opacity-60 lg:bg-transparent"
+            onClick={() => {
+              toggleOpen("hobbies");
+              setActiveTab("hobbies");
+              setContentTab("sports");
+            }}
+            key={"hobbies"}
+          >
+            <DropdownArrowFill isOpen={isOpen === "hobbies"} />
+            <p className="text-secondary-400 font-light">hobbies</p>
+          </button>
+
+          <motion.div
+            layout
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isOpen === "hobbies" ? 1 : 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {isOpen === "hobbies" && (
+              <HobbySidebar setContentTab={setContentTab} />
+            )}
+          </motion.div>
+        </motion.div>
+
+        <motion.div
           variants={escapeRealityVariants}
           initial="initial"
           animate="animate"
           exit="exit"
         >
           <button
-            className="h-10 flex gap-3 px-3 items-center border-y border-line w-full"
+            className="h-10 flex gap-3 px-3 items-center border-y border-line w-full bg-line hover:opacity-60 lg:bg-transparent"
             onClick={() => toggleOpen("escapeReality")}
             key={"escapeReality"}
           >
@@ -287,7 +388,7 @@ const AboutSidebar: NextPage<AboutSidebarProps> = ({
           exit="exit"
         >
           <button
-            className="h-10 flex gap-3 px-3 items-center border-b border-line w-full"
+            className="h-10 flex gap-3 px-3 items-center border-b border-line w-full bg-line hover:opacity-60 lg:bg-transparent"
             onClick={() => toggleOpen("contacts")}
             key={"contacts"}
           >

@@ -1,4 +1,5 @@
 export const GITHUB_API_BASE_URL = "https://api.github.com";
+export const SPOTIFY_BASE_URL = "https://api.spotify.com/v1";
 
 export const PAGES = {
   HOME: "/",
@@ -50,4 +51,12 @@ export const GITHUB_GIST_ENDPOINTS = {
   DELETE_GIST: (id: string) => `/gists/${id}`,
   STAR_GIST: (id: string) => `/gists/${id}/star`,
   GISTS_BY_USER: (username: string) => `/users/${username}/gists`,
+};
+
+export const SPOTIFY_ENDPOINTS = {
+  TOKEN: "https://accounts.spotify.com/api/token",
+  USER_PROFILE: "/me",
+  NOW_PLAYING: "/me/player/currently-playing",
+  TOP_TRACKS: "/me/top/tracks?time_range=medium_term&limit=5&offset=0",
+  TOP_ARTISTS: "/me/top/artists?time_range=medium_term&limit=5&offset=0",
 };

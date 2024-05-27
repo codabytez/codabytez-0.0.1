@@ -65,6 +65,8 @@ export const useSnakeGameController = (options: ISnakeGameOptions) => {
     height: number;
   }>({ width: 0, height: 0 });
 
+  const togglePause = () => setPaused(!paused);
+
   useEffect(() => {
     const updateCanvasSize = () => {
       const canvas = canvasRef.current;
@@ -301,10 +303,6 @@ export const useSnakeGameController = (options: ISnakeGameOptions) => {
     setGameOver(false);
     setScore(0);
     setPaused(false);
-  };
-
-  const togglePause = () => {
-    setPaused(!paused);
   };
 
   return {
