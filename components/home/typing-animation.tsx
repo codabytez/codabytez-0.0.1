@@ -6,7 +6,6 @@ const TypingAnimation: NextPage<{ text: string; className?: string }> = ({
   className,
 }) => {
   const [typedText, setTypedText] = useState("");
-  const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
