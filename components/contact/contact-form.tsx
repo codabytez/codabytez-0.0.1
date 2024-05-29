@@ -1,9 +1,10 @@
 import { NextPage } from "next";
-import { Input, TextArea } from "../input";
-import Button from "../button";
+import { Input, TextArea } from "../UI/input";
+import Button from "../UI/button";
 import { motion } from "framer-motion";
 
 interface ContactFormProps {
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   form: { name: string; email: string; message: string };
   handleChange: (
     e:
@@ -12,7 +13,11 @@ interface ContactFormProps {
   ) => void;
 }
 
-const ContactForm: NextPage<ContactFormProps> = ({ form, handleChange }) => {
+const ContactForm: NextPage<ContactFormProps> = ({
+  onSubmit,
+  form,
+  handleChange,
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, x: -50 }}
@@ -21,7 +26,10 @@ const ContactForm: NextPage<ContactFormProps> = ({ form, handleChange }) => {
       transition={{ duration: 0.5, delay: 0.2 }}
       className="w-full lg:w-[43%] flex items-center lg:justify-center py-10 px-5"
     >
-      <form className="flex flex-col gap-6 w-full max-w-[372px]">
+      <form
+        className="flex flex-col gap-6 w-full max-w-[372px]"
+        onSubmit={onSubmit}
+      >
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -38,7 +46,7 @@ const ContactForm: NextPage<ContactFormProps> = ({ form, handleChange }) => {
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: 1, delay: 0.4 }}
         >
           <Input
             label="_email:"
@@ -51,7 +59,7 @@ const ContactForm: NextPage<ContactFormProps> = ({ form, handleChange }) => {
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
+          transition={{ duration: 1, delay: 0.6 }}
         >
           <TextArea
             label="_message:"
@@ -64,7 +72,7 @@ const ContactForm: NextPage<ContactFormProps> = ({ form, handleChange }) => {
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
+          transition={{ duration: 1, delay: 0.8 }}
         >
           <Button variant="secondary" className="w-max">
             submit-message

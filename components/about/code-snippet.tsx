@@ -9,7 +9,6 @@ import CodeBlock from "../code-block";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { formatDistanceStrict } from "date-fns";
-import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import SnippetSkeleton from "./snippet-skeleton";
@@ -43,7 +42,6 @@ const fetchGistFileContent = async (gist: MyGistsResponse) => {
 const CodeSnippet: NextPage<{
   gist: MyGistsResponse;
 }> = ({ gist }) => {
-  const { push } = useRouter();
   const { data: fileContent, isLoading } = useQuery({
     queryKey: ["gistFileContent", gist],
     queryFn: () => fetchGistFileContent(gist),
@@ -104,13 +102,14 @@ const CodeSnippet: NextPage<{
                   details
                 </button>
 
-                <button
+                <Link
                   className="flex gap-2 items-center w-max h-max text-code-snippet hover:text-secondary-400"
-                  onClick={() => push(gist.comments_url)}
+                  href={gist.html_url}
+                  target="_blank"
                 >
                   <Image src={message} alt="message" />
                   {gist.comments} comments
-                </button>
+                </Link>
               </div>
             </div>
 

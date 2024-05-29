@@ -2,12 +2,12 @@
 import { NextPage } from "next";
 import { motion } from "framer-motion";
 import TypingAnimation from "./typing-animation";
-import NowPlayingCard from "../now-playing-card";
+import DiscordPresence from "../discord-presence";
 
 const Details: NextPage = () => {
   return (
     <div
-      className="flex flex-col gap-14 h-full justify-center"
+      className="flex flex-col gap-10 sm:gap-14 h-full justify-center"
       suppressHydrationWarning
     >
       <motion.div
@@ -73,7 +73,7 @@ const Details: NextPage = () => {
         </motion.p>
       </motion.div>
 
-      <NowPlayingCard />
+      <DiscordPresence />
     </div>
   );
 };

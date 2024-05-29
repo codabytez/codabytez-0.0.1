@@ -116,3 +116,70 @@ interface SpotifyTopTracksResponse {
   next: string;
   previous: null;
 }
+
+interface ContentfulResponse {
+  metadata: {
+    tags: string[];
+  };
+  sys: {
+    space: {
+      sys: {
+        type: string;
+        linkType: string;
+        id: string;
+      };
+    };
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    environment: {
+      sys: {
+        id: string;
+        type: string;
+        linkType: string;
+      };
+    };
+    revision: number;
+    contentType: {
+      sys: {
+        type: string;
+        linkType: string;
+        id: string;
+      };
+    };
+    locale: string;
+  };
+  fields: {
+    title: string;
+    project_img: {
+      fields: {
+        title: string;
+        file: {
+          url: string;
+          details: {
+            size: number;
+            image: {
+              width: number;
+              height: number;
+            };
+          };
+        };
+      };
+      sys: {
+        type: string;
+        linkType: string;
+        id: string;
+      };
+    };
+    description: string;
+    tags: string[];
+    link: string;
+    github_repo: string;
+  };
+}
+
+interface LanyardResponse {
+  data: LanyardData;
+  success: boolean;
+}

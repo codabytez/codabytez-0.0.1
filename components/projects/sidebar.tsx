@@ -1,14 +1,14 @@
 "use client";
 import { NextPage } from "next";
 import Image from "next/image";
-import CustomCheckbox from "../checkbox";
+import CustomCheckbox from "../UI/checkbox";
 import react from "@/public/react.svg";
 import html from "@/public/html.svg";
 import css from "@/public/css.svg";
 import vue from "@/public/vue.svg";
-import angular from "@/public/angular.svg";
-import gatsby from "@/public/gatsby.svg";
 import flutter from "@/public/flutter.svg";
+import tailwind from "@/public/tailwind.svg";
+import nextjs from "@/public/nextjs.svg";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { DropdownArrowFill } from "../dropdown-arrow";
@@ -28,13 +28,13 @@ const listItemVariants = {
 };
 
 const projectTypes = [
+  { name: "Next.js", icon: nextjs },
   { name: "React", icon: react },
   { name: "HTML", icon: html },
   { name: "CSS", icon: css },
   { name: "Vue", icon: vue },
-  { name: "Angular", icon: angular },
-  { name: "Gatsby", icon: gatsby },
   { name: "Flutter", icon: flutter },
+  { name: "Tailwind", icon: tailwind },
 ];
 
 const ProjectSidebar: NextPage<{

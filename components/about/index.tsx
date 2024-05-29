@@ -19,8 +19,8 @@ import {
   music,
 } from "./code";
 import { useStarredGists } from "@/hooks/gists";
-import { LoadingAnimation } from "./loading";
-import { ErrorAnimation } from "./error";
+import { LoadingAnimation } from "../UI/loading";
+import { ErrorAnimation } from "../UI/error";
 import {
   useSpotifyAccessToken,
   useTopTracks,

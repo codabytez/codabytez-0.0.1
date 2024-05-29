@@ -194,10 +194,10 @@ export const music = (
 * upbeat music to lift my spirits.
 *
 * Top Artists for the month:
-${topArtists.items.map((artist) => `* - ${artist.name}`).join("\n")}
+${topArtists?.items.map((artist) => `* - ${artist.name}`).join("\n")}
 *
 * Top Tracks for the month:
-${topTracks.items
+${topTracks?.items
   .map((track) => `* - ${track.artists[0].name} - ${track.name}`)
   .join("\n")}
 *

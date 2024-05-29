@@ -5,6 +5,8 @@ import Link from "next/link";
 import { PAGES } from "@/constants";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import logo from "@/public/codabytez-logo.svg";
 
 const links = [
   { href: PAGES.HOME, text: "_hello" },
@@ -22,9 +24,9 @@ const Navbar: NextPage = () => {
 
   return (
     <nav className="w-full h-[60px] border-b border-line relative flex">
-      <p className="font-medium select-none px-5 h-[60px] lg:border-r lg:border-line self-stretch flex items-center min-w-[310px]">
-        codabytez
-      </p>
+      <div className="px-5 h-[60px] lg:border-r lg:border-line self-stretch flex items-center min-w-[310px]">
+        <Image src={logo} alt="logo" height={24} />
+      </div>
 
       <div
         className={`flex items-stretch justify-between lg:!h-full w-full flex-col lg:flex-row absolute lg:relative top-[60px] lg:top-0 z-20 bg-primary-200 rounded-b-lg lg:rounded-b-none lg:rounded-tr-lg ${

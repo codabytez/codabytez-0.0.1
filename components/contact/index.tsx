@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 "use client";
 import { NextPage } from "next";
 import { useState } from "react";
@@ -7,8 +8,11 @@ import close from "@/public/close.svg";
 import ContactForm from "./contact-form";
 import CodeString from "./code-string";
 import { motion } from "framer-motion";
+import SendSuccess from "./success";
+import emailjs from "@emailjs/browser";
 
 const Contact: NextPage = () => {
+  const [isSuccess, setIsSuccess] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -21,6 +25,27 @@ const Contact: NextPage = () => {
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (form.name && form.email && form.message) {
+      emailjs
+        .send(
+          String(process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID),
+          String(process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID),
+          {
+            name: form.name,
+            email: form.email,
+            message: form.message,
+            to_name: "Obinna Chidi",
+          },
+          String(process.env.NEXT_PUBLIC_EMAILJS_USER_ID)
+        )
+        .then(() => {
+          setIsSuccess(true);
+        });
+    }
   };
 
   return (
@@ -52,7 +77,15 @@ const Contact: NextPage = () => {
             msOverflowStyle: "none",
           }}
         >
-          <ContactForm form={form} handleChange={handleChange} />
+          {isSuccess ? (
+            <SendSuccess setIsSuccess={setIsSuccess} />
+          ) : (
+            <ContactForm
+              form={form}
+              handleChange={handleChange}
+              onSubmit={handleSubmit}
+            />
+          )}
           <div className="h-full w-[1px] bg-line hidden lg:block basis-[1px]" />
 
           <CodeString form={form} />

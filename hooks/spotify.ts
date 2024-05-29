@@ -22,6 +22,7 @@ export const useNowPlaying = (accessToken: string) => {
     queryKey: ["spotify", "now-playing"],
     queryFn: () => getNowPlaying(accessToken),
     enabled: !!accessToken,
+    placeholderData: keepPreviousData,
     refetchOnWindowFocus: true,
     refetchInterval: 10000,
   });

@@ -60,3 +60,6 @@ export const SPOTIFY_ENDPOINTS = {
   TOP_TRACKS: "/me/top/tracks?time_range=medium_term&limit=5&offset=0",
   TOP_ARTISTS: "/me/top/artists?time_range=medium_term&limit=5&offset=0",
 };
+
+export const LANYARD_API =
+  "https://api.lanyard.rest/v1/users/937116359601569842";

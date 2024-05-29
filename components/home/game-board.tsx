@@ -1,6 +1,6 @@
 "use client";
 import { NextPage } from "next";
-import Button from "../button";
+import Button from "../UI/button";
 import Image from "next/image";
 import blue from "@/public/blue.svg";
 import green from "@/public/green.svg";

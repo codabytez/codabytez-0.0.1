@@ -4,13 +4,36 @@ import ProjectSidebar from "./sidebar";
 import Image from "next/image";
 import close from "@/public/close.svg";
 import ProjectCard from "./project-card";
-import { projects } from "./projects";
 import { motion } from "framer-motion";
 import ProjectEmptyState from "./project-empty-state";
+import { useProjects } from "@/hooks/projects";
+import { LoadingAnimation } from "../UI/loading";
+import { ErrorAnimation } from "../UI/error";
 
 const Projects = () => {
   const [selectedTech, setSelectedTech] = useState<string[]>([]);
-  const [filteredProjects, setFilteredProjects] = useState(projects);
+  const { data, isLoading, isError } = useProjects();
+  const [filteredProjects, setFilteredProjects] = useState<
+    ContentfulResponse[]
+  >([]);
+
+  useEffect(() => {
+    if (data) {
+      if (selectedTech.length === 0) {
+        setFilteredProjects(data);
+      } else {
+        setFilteredProjects(
+          data.filter((project: ContentfulResponse) =>
+            project.fields.tags.some((tech) =>
+              selectedTech
+                .map((item) => item.toLowerCase())
+                .includes(tech.toLowerCase())
+            )
+          )
+        );
+      }
+    }
+  }, [selectedTech, data]);
 
   const handleSelect = (name: string) => {
     if (selectedTech.includes(name)) {
@@ -21,22 +44,6 @@ const Projects = () => {
       setSelectedTech([...selectedTech, name]);
     }
   };
-
-  useEffect(() => {
-    if (selectedTech.length === 0) {
-      setFilteredProjects(projects);
-    } else {
-      setFilteredProjects(
-        projects.filter((project) =>
-          project.techStack.some((tech) =>
-            selectedTech
-              .map((item) => item.toLowerCase())
-              .includes(tech.toLowerCase())
-          )
-        )
-      );
-    }
-  }, [selectedTech]);
 
   return (
     <div className="flex flex-col lg:flex-row w-full">
@@ -64,7 +71,11 @@ const Projects = () => {
         </div>
 
         <div className="lg:border-t lg:border-line p-10 2xl:p-20 relative overflow-hidden h-full">
-          {filteredProjects.length === 0 ? (
+          {isLoading ? (
+            <LoadingAnimation />
+          ) : isError ? (
+            <ErrorAnimation />
+          ) : filteredProjects.length === 0 ? (
             <ProjectEmptyState />
           ) : (
             <motion.div
@@ -87,7 +98,12 @@ const Projects = () => {
                   exit={{ x: -100 }}
                   transition={{ duration: 0.5, delay: i * 0.5 }}
                 >
-                  <ProjectCard key={i} {...project} index={i} />
+                  <ProjectCard
+                    key={project.sys.id}
+                    {...project}
+                    index={i}
+                    isLoading={isLoading}
+                  />
                 </motion.div>
               ))}
             </motion.div>
